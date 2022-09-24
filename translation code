@@ -1,0 +1,46 @@
+pip install googletrans
+
+from googletrans import Translator, constants
+from pprint import pprint
+
+translator = Translator()
+
+translation = translator.translate("Hola Mundo")
+print(f"{translation.origin} ({translation.src}) --> {translation.text} ({translation.dest})")
+
+#Translate Spanish to Arabic
+
+translation = translator.translate("Hola Mundo", dest='ar')
+print(f"{translation.origin}({translation.src}) --> {translation.text} ({translation.dest})")
+
+#Translate Source Language to English
+
+translation = translator.translate ("Wie gehts ?", src = "de")
+print(f"{translation.origin}({translation.src}) --> {translation.text} ({translation.dest})")
+
+#Print all translations along with other data
+
+pprint(translation.extra_data)
+
+#Translate Multiple Phrases
+
+phrases = [
+    "How's it going, my friend?",
+    "It's great to see you.",
+    "How has your job been?"
+]
+translations = translator.translate(phrases, dest="tr")
+for translation in translations:
+    print(f"{translation.origin} ({translation.src}) --> {translation.text} ({translation.dest})")
+    
+detection = translator.detect("Hola Mi Amigo")
+print("Language code:", detection.lang)
+print("Confidence:", detection.confidence)
+
+print("Language:", constants.LANGUAGES[detection.lang])
+
+#Print All Languages
+
+print("Total supported languages:", len(constants.LANGUAGES))
+print("Languages:")
+pprint(constants.LANGUAGES)
